@@ -34,7 +34,7 @@ void Game::Initialize(HWND window, int width, int height)
     m_timer.SetTargetElapsedSeconds(1.0 / 60);
     */
 
-	mapSize = BmpReader::GetGreyScaleData("smallmap.bmp", height_map_file);
+	mapSize = BmpReader::GetGreyScaleData("Test_terrian.bmp", height_map_file);
 }
 
 // Executes the basic game loop.
@@ -166,6 +166,10 @@ void Game::Render()
 	m_batch->End();
 
     m_deviceResources->Present();
+
+	delete indices;
+	delete vertices;
+
 }
 
 // Helper method to clear the back buffers.

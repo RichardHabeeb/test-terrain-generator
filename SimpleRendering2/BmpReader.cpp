@@ -42,7 +42,7 @@ POINT BmpReader::GetGreyScaleData(const char * filename, float * &output)
 
 		//read a line of pixels
 		fread(data, sizeof(pixel24), size.x, f);
-		fread(&lineEnd, sizeof(unsigned char), 2, f);
+		//fread(&lineEnd, sizeof(unsigned char), 2, f);
 
 		for (int i = 0; i < size.x; i++)
 		{
@@ -52,13 +52,15 @@ POINT BmpReader::GetGreyScaleData(const char * filename, float * &output)
 			float G = float(data[i].g) / 255;
 			float B = float(data[i].b) / 255;
 			//output[i] = .2126 * pow(R, 2.2f) + .7152 * pow(G, 2.2f) + .0722 * pow(B, 2.2f);
-			output[size.y*j + i] = R;
+			output[size.y*j + i] = (R + G + B) / 3;
 
 			//OutputDebugString(output[i])
 		}
 	}
 
 	fclose(f);
+
+	delete data;
 
 	return size;
 }
